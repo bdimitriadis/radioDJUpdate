@@ -1,7 +1,7 @@
 # radioDJUpdate
 The update mechanism, using web crawling spiders, part of radioDJango (e-radio) project. 
 * Produces the proper json files, that will be used by Django system to update the radioDJango's project database.
-* Downloads all station images, that will be used on the frontend part (webpage and webapp) of radioDJango's project.
+* Downloads all radio station images (radioUrls/images directory), that will be used on the frontend part (webpage and webapp) of radioDJango's project.
 
 ## Getting Started
 
