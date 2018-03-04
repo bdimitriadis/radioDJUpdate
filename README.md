@@ -1,5 +1,6 @@
 # radioDJUpdate
-The update mechanism, using web crawling spiders, part of radioDJango (e-radio) project
+The update mechanism, using web crawling spiders, part of radioDJango (e-radio) project. 
+It produces the proper json files, that will be used by Django system to update the radioDJango's project database.
 
 ## Getting Started
 
