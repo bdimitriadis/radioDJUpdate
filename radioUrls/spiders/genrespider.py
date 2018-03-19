@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import os
+import re
 from radioUrls.items import StationItem
 
 
@@ -30,14 +31,13 @@ class GenrespiderSpider(scrapy.Spider):
         infoUrls = lis.xpath(".//a[contains(@class, 'button') and contains(text(), 'Radio info')]/@href").extract()
 
         for i in range(len(infoUrls)):
-#             if not genres[i].strip():
-#                 genres[i]='N/A'
             item = StationItem(name = names[i].strip(),
                 stationUrl = liveUrls[i],
                 genre = genres[i])
             
             
             yield scrapy.Request("%s%s"%(self.start_urls[0][:-1], infoUrls[i]), callback=self.parse_station_info, meta={'item': item})
+#             yield scrapy.Request("%s%s"%(self.baseUrl, liveUrls[i]), callback=self.parse_station_stream, meta={'item': item})
 
 
 
@@ -46,4 +46,11 @@ class GenrespiderSpider(scrapy.Spider):
         item = response.meta['item']
         item['area'] = response.xpath(".//p[contains(text(),'Περιοχή:')]/a/text()").extract_first()
         item['image_urls'] = [response.xpath("//div[@id='stationInfo']/p[@class='logo']/img/@src").extract_first()]
+        yield scrapy.Request("%s%s"%(self.start_urls[0][:-1], item['stationUrl']), callback=self.parse_station_stream, meta={'item': item})
+        
+    def parse_station_stream(self, response):
+        item = response.meta['item']
+        tmpStr = response.xpath(".//script[contains(text(),'streamsrc:')]/text()").extract_first()
+        item['stationUrl'] = re.findall("streamsrc: .*?,",tmpStr)
+        item['stationUrl'] = item['stationUrl'][0].replace("',","").replace("streamsrc: '","") if item['stationUrl'] else ""
         yield item
