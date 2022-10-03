@@ -25,7 +25,7 @@ Just run updateDB.py in the radioDJUpdate directory with python.
 
 ## Authors
 
-* **Blasis Dimitriadis** - *Initial work* - [radioDJUpdate](https://github.com/bdimitriadis/radioDJUpdate)
+* **Vlasios Dimitriadis** - *Initial work* - [radioDJUpdate](https://github.com/bdimitriadis/radioDJUpdate)
 
 
 ## License
